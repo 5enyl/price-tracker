@@ -56,7 +56,7 @@ def add_new_part(name, category, url):
     cursor.execute('''
         INSERT INTO parts (name, category, price, url, last_updated)
         VALUES (?, ?, ?, ?, ?)
-    ''', (name, category, price, url, datetime.now()))
+    ''', (name, category, price, url, datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     
     part_id = cursor.lastrowid
     
@@ -109,7 +109,7 @@ def update_prices():
                 UPDATE parts 
                 SET price = ?, last_updated = ?
                 WHERE id = ?
-            ''', (new_price, datetime.now(), part_id))
+            ''', (new_price, datetime.now().strftime('%Y-%m-%d %H:%M:%S'), part_id))
             
             # Add to price history
             cursor.execute('''
