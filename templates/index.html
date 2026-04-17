@@ -6,6 +6,8 @@
     </head>
     <body>
         <h1>PC Part Price Tracker</h1>
+        <a href="/search" class="btn btn-primary mb-3">Search & Add Parts</a>
+
 
         <table border="1">
             <tr>
@@ -18,7 +20,7 @@
             {% for part in parts%}
             
             <tr>
-                <td><a href="/history/{{ part['id'] }}">{{ part['name'] }}</a></td>
+                <td><a href="/history/{{ part['id'] }}">{% set parts_name = [] %}{% if part['brand'] %}{% set _ = parts_name.append(part['brand']) %}{% endif %}{% if part['model'] %}{% set _ = parts_name.append(part['model']) %}{% endif %}{% if part['base_model'] %}{% set _ = parts_name.append(part['base_model']) %}{% endif %}{{ parts_name | join(' ') or part['name'] }}</a></td>
                 <td>{{ part['category'] }}</td>
                 <td>${{ "%.2f"|format(part['price']) }}</td>
                 <td>{{ part['last_updated'] }}</td>
